@@ -1,24 +1,19 @@
 <template>
-  <div id="d">
+  <div>
     <top-nav></top-nav>
-    <div id="core">
-      <router-view></router-view>
-    </div>
+    <onboarding></onboarding>
   </div>
 </template>
 
 <script>
 import TopNav from "@/components/Dashboard/TopNav.vue";
+import Onboarding from "@/components/Dashboard/Onboarding";
 export default {
   name: "dashboard",
-  components: { TopNav }
+  components: { TopNav, Onboarding }
 };
 </script>
 
 <style lang="scss">
 @import "~@/assets/styles/_variables";
-
-#d {
-  height: 100%;
-}
 </style>
