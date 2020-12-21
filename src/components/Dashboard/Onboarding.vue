@@ -48,6 +48,10 @@
             <div
               @click="answerSecondQuestion(item.value)"
               class="secondStepChoices px-4 py-4 grey lighten-3"
+              :class="{
+                'grey lighten-1': item.isChecked,
+                'ml-8': !item.isChecked
+              }"
             >
               {{ item.value }}
             </div>
