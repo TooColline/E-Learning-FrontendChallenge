@@ -38,12 +38,19 @@
         </div>
       </v-col>
       <v-col class="col-12 col-md-6">
-        <div class="pa-16 d-flex flex-column onboarding-cta grey lighten-3">
-          <v-icon class="initialIcon mt-8">mdi-trophy</v-icon>
-          <div class="text-center w-full mt-14 mb-8">
-            <v-btn color="grey darken-1 white--text" @click="progressStatus(2)"
-              >Proceed</v-btn
+        <div class="secondStep d-flex flex-column w-full">
+          <div
+            class="d-flex align-content-center mb-2"
+            v-for="item in secondQuestionChoices"
+            :key="item.id"
+          >
+            <v-icon v-show="item.isChecked" class="mr-2">mdi-check</v-icon>
+            <div
+              @click="answerSecondQuestion(item.value)"
+              class="secondStepChoices px-4 py-4 grey lighten-3"
             >
+              {{ item.value }}
+            </div>
           </div>
         </div>
       </v-col>
@@ -90,7 +97,12 @@
         </div>
       </v-col>
       <v-col md="6" cols="12" class="d-flex align-center" v-if="step === 2">
-        <p class="grey">FINALIZE</p>
+        <p class="grey--text">FINALIZE</p>
+      </v-col>
+      <v-col md="6" cols="12" class="d-flex align-center" v-if="step === 1">
+        <v-btn color="grey darken-1 white--text" @click="progressStatus(2)"
+          >Proceed</v-btn
+        >
       </v-col>
     </v-row>
   </v-container>
@@ -110,7 +122,16 @@ export default {
         { id: 3, value: 3, isActive: false },
         { id: 4, value: 4, isActive: false },
         { id: 5, value: 5, isActive: false }
-      ]
+      ],
+      secondQuestionChoices: [
+        { id: 1, value: "Answer 1", isChecked: false },
+        { id: 2, value: "Answer 2", isChecked: false },
+        { id: 3, value: "Answer 3", isChecked: false },
+        { id: 4, value: "Answer 4", isChecked: false },
+        { id: 5, value: "Answer 5", isChecked: false },
+        { id: 5, value: "Answer 6", isChecked: false }
+      ],
+      selectedSecondQuestionAnswers: []
     };
   },
   // watch: {
@@ -127,6 +148,13 @@ export default {
       activeStep.isActive = true;
       console.log(activeStep, "activeStep");
     },
+    answerSecondQuestion(value) {
+      this.selectedSecondQuestionAnswers.push(value);
+      let selectedChoice = this.secondQuestionChoices.find(
+        el => el.value === value
+      );
+      selectedChoice.isChecked = true;
+    },
     goBack() {
       this.step = this.step - 1;
     }
@@ -138,6 +166,14 @@ export default {
 .active {
   width: 2rem !important;
   background-color: darkgray !important;
+}
+.secondStep {
+  height: 20rem;
+  overflow-y: auto;
+  .secondStepChoices {
+    width: 100%;
+    cursor: pointer;
+  }
 }
 .thirdStepCta {
   width: 100%;
