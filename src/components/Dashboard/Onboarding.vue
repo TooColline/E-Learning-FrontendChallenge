@@ -146,7 +146,7 @@ export default {
       this.step = step;
       let activeStep = this.maxSteps.find(el => el.value === step);
       activeStep.isActive = true;
-      console.log(activeStep, "activeStep");
+      this.setInactiveStep(step);
     },
     answerSecondQuestion(value) {
       this.selectedSecondQuestionAnswers.push(value);
@@ -156,7 +156,14 @@ export default {
       selectedChoice.isChecked = true;
     },
     goBack() {
+      let activeStep = this.maxSteps.find(el => el.value === this.step - 1);
+      activeStep.isActive = true;
       this.step = this.step - 1;
+      this.setInactiveStep(this.step);
+    },
+    setInactiveStep(step) {
+      let inActiveStep = this.maxSteps.find(el => el.value !== step);
+      inActiveStep.isActive = false;
     }
   }
 };
@@ -164,7 +171,7 @@ export default {
 
 <style lang="scss">
 .active {
-  width: 2rem !important;
+  width: 2.4rem !important;
   background-color: darkgray !important;
 }
 .secondStep {
