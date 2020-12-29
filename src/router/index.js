@@ -6,7 +6,16 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    component: () => import("../pages/Dashboard/index.vue")
+    name: "Onboarding", // using named routes enables us change the path without refactoring code
+    component: () => import("../pages/Dashboard/index.vue"),
+    children: [
+      {
+        path: "step/:id",
+        name: "ProgressSteps",
+        props: true,
+        component: () => import("../components/ProgressSteps/Steps")
+      }
+    ]
   }
 ];
 
